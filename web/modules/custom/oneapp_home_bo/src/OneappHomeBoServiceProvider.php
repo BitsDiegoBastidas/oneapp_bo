@@ -20,4 +20,7 @@ class OneappHomeBoServiceProvider extends ServiceProviderBase {
     $definition->setClass('Drupal\oneapp_home_bo\Services\v2_0\IntrawayServiceBo');
   }
 
+  public function hola_mundo() {
+    return 'hi';
+  }
 }
