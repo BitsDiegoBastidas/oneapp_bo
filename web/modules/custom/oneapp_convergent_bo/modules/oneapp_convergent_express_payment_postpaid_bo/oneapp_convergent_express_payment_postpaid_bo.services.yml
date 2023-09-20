@@ -1,0 +1,68 @@
+services:
+  oneapp_convergent_express_payment_postpaid_bo.v2_0.balances_rest_logic:
+    class: Drupal\oneapp_convergent_express_payment_postpaid_bo\Services\v2_0\BalancesExpressRestLogic
+    arguments: ['@oneapp.home.utils', "@oneapp_convergent_express_payment_postpaid_bo.v2_0.util_service", "@request_stack"]
+
+  oneapp_convergent_express_payment_postpaid_bo.v2_0.util_service:
+    class: Drupal\oneapp_convergent_express_payment_postpaid_bo\Services\v2_0\UtilServiceExpressPospaidBo
+    arguments: ["@oneapp_endpoint.manager", "@oneapp_convergent_payment_gateway.v2_0.payment_gateway_rest_logic", "@oneapp_convergent_payment_gateway.v2_0.utils_service", "@oneapp.captcha.token_service", "@adf_block_config.config_block"]
+
+  oneapp_convergent_express_payment_postpaid_bo.v2_0.order_details_rest_logic_bo:
+    class: Drupal\oneapp_convergent_express_payment_postpaid_bo\Services\v2_0\OrderDetailsExpressRestLogicBo
+    arguments: ['@oneapp_endpoint.manager', '@oneapp.utils', '@oneapp_convergent_payment_gateway.v2_0.utils_service', '@config.factory', '@oneapp_convergent_accounts.v2_0.accounts', '@oneapp_convergent_payment_gateway.v2_0.payment_gateway_rest_logic', '@request_stack']
+
+  oneapp_convergent_express_payment_postpaid_bo.v2_0.qr_express_rest_logic_bo:
+    class: Drupal\oneapp_convergent_express_payment_postpaid_bo\Services\v2_0\QrExpressRestLogicBo
+    arguments: ['@oneapp_convergent_payment_gateway_qr.qr_service', '@oneapp_convergent_payment_gateway.v2_0.transactions_payment_rest_logic', '@oneapp_convergent_payment_gateway.v2_0.utils_service', '@oneapp_convergent_payment_gateway_qr.v2_0.qr_rest_logic']
+
+  oneapp_convergent_express_payment_postpaid_bo.v2_0.verification_qr_rest_logic:
+    class: Drupal\oneapp_convergent_express_payment_postpaid_bo\Services\v2_0\VerificationQrRestLogic
+    arguments: ['@oneapp.home.utils', "@oneapp_convergent_express_payment_postpaid_bo.v2_0.util_service", "@request_stack", "@entity_type.manager"]
+  
+  oneapp_convergent_express_payment_postpaid_bo.v2_0.payment_gateway_express_invoices_rest_logic:
+    class: Drupal\oneapp_convergent_express_payment_postpaid_bo\Services\v2_0\PaymentGatewayExpressInvoicesRestLogic
+    arguments: ['@oneapp_endpoint.manager', '@oneapp_convergent_express_payment_postpaid_bo.v2_0.utils_service_express', '@oneapp_convergent_payment_gateway.v2_0.transactions_payment_rest_logic', '@oneapp_convergent_payment_gateway.token_service', '@oneapp.utils']
+
+  oneapp_convergent_express_payment_postpaid_bo.v2_0.utils_service_express:
+    class: Drupal\oneapp_convergent_express_payment_postpaid_bo\Services\v2_0\UtilsServiceExpress
+    arguments: ['@oneapp_convergent_payment_gateway.v2_0.transactions_payment_rest_logic', '@oneapp_convergent_payment_gateway.token_service']
+  
+  oneapp_convergent_express_payment_postpaid_bo.v2_0.invoices_callbacks_rest_logic_bo:
+    class: Drupal\oneapp_convergent_express_payment_postpaid_bo\Services\v2_0\CallbackInvoicesRestLogicBo
+    arguments: [ '@oneapp_convergent_payment_gateway.v2_0.transactions_payment_rest_logic' ]
+
+  oneapp_convergent_express_payment_postpaid_bo.v2_0.verification_tc_rest_logic:
+    class: Drupal\oneapp_convergent_express_payment_postpaid_bo\Services\v2_0\VerificationTcRestLogic
+    arguments: ['@oneapp.home.utils', "@oneapp_convergent_express_payment_postpaid_bo.v2_0.util_service", "@request_stack", "@entity_type.manager"]
+ 
+  oneapp_convergent_express_payment_postpaid_bo.v2_0.invoices_callbacks_tm_rest_logic_bo:
+    class: Drupal\oneapp_convergent_express_payment_postpaid_bo\Services\v2_0\CallbackInvoicesTmRestLogicBo
+    arguments: [ '@oneapp_convergent_payment_gateway.v2_0.transactions_payment_rest_logic' ]
+
+  oneapp_convergent_express_payment_postpaid_bo.v2_0.payment_gateway_tigomoney_async_bo_rest_logic:
+    class: Drupal\oneapp_convergent_express_payment_postpaid_bo\Services\v2_0\PaymentGatewayExpressTmInvoicesAsyncRestLogicBo
+    arguments: ['@oneapp_endpoint.manager', '@oneapp_convergent_payment_gateway_tigomoney.v2_0.utils_service_tm_invoice', '@oneapp_convergent_payment_gateway.v2_0.transactions_payment_rest_logic', '@oneapp_convergent_payment_gateway.token_service', '@oneapp.utils']
+
+  oneapp_convergent_express_payment_postpaid_bo.v2_0.verification_tigo_money_rest_logic:
+    class: Drupal\oneapp_convergent_express_payment_postpaid_bo\Services\v2_0\VerificationTigoMoneyRestLogic
+    arguments: ['@oneapp.home.utils', "@oneapp_convergent_express_payment_postpaid_bo.v2_0.util_service",'@oneapp_convergent_payment_gateway.v2_0.transactions_payment_rest_logic', "@request_stack", "@entity_type.manager","@oneapp_convergent_payment_gateway_tigomoney.v2_0.payment_gateway_async_rest_logic"]
+  oneapp_convergent_express_payment_postpaid_bo.route_subscriber:
+    class: Drupal\oneapp_convergent_express_payment_postpaid_bo\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }
+
+  oneapp_convergent_express_payment_postpaid_bo.v2_0.utils_service_tm_invoice:
+    class: Drupal\oneapp_convergent_express_payment_postpaid_bo\Services\v2_0\UtilsServiceTmInvoicesBo
+    arguments: ['@oneapp_convergent_payment_gateway.v2_0.transactions_payment_rest_logic', '@oneapp_convergent_payment_gateway.token_service']
+
+  oneapp_convergent_express_payment_postpaid_bo.v2_0.payment_gateway_rest_logic:
+    class: Drupal\oneapp_convergent_express_payment_postpaid_bo\Services\v2_0\PaymentGatewayInvoicesTigomoneyBoRestLogic
+    arguments: ['@oneapp_endpoint.manager', '@oneapp_convergent_express_payment_postpaid_bo.v2_0.utils_service_tm_invoice', '@oneapp_convergent_payment_gateway.v2_0.transactions_payment_rest_logic', '@oneapp_convergent_payment_gateway.token_service', '@oneapp.utils']
+
+  oneapp_convergent_express_payment_postpaid_bo.v2_0.mobile.otp.service:
+    class: Drupal\oneapp_convergent_express_payment_postpaid_bo\Services\v2_0\OtpService
+    arguments: ['@oneapp_endpoint.manager', '@oneapp.mobile.utils']
+
+  oneapp_convergent_express_payment_postpaid_bo.v2_0.mobile.otp.rest.logic:
+    class: Drupal\oneapp_convergent_express_payment_postpaid_bo\Services\v2_0\OtpRestLogic
+    arguments: []
