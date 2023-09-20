@@ -21,6 +21,6 @@ class OneappHomeBoServiceProvider extends ServiceProviderBase {
   }
 
   public function hola_mundo() {
-    return 'hi';
+    return 'hiii';
   }
 }
